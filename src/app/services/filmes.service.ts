@@ -46,5 +46,23 @@ export class FilmesService {
         });
   });
   }
+  getCep(id)
+  {
+    return new Promise((resolve, reject) => {
+      this.http.get('viacep.com.br/ws/'+id+'/json/',{})    
+      .subscribe
+        ( (data: any) => {
+          console.log("retorno",data.Production);          
+          return resolve(data.Production)
+
+        }), (error => {
+          return reject(error)
+          console.log(error.status);
+          console.log(error.error); // error message as string
+          console.log(error.headers);
+
+        });
+  });
+  }
 
 }
