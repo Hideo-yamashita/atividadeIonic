@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { empty, EMPTY } from 'rxjs';
-import { FilmesService } from '../services/filmes.service';
-
 @Component({
   selector: 'app-cep',
   templateUrl: './cep.page.html',
@@ -25,14 +22,28 @@ export class CepPage implements OnInit {
   {
     if (this.cep != "")
     {
-
+      
     }
     else
     {
       alert("Infomer um cep");
       return;
     }
-    
+    let url = `https://viacep.com.br/ws/${this.cep}/json/`; 
+    console.log(url);
+
+    fetch(url)
+    .then((resposta)=>{
+      return resposta.json();
+    })
+    .then((json)=>{
+      this.estado = json.uf; 
+      this.cidade = json.localidade; 
+      this.bairro = json.bairro;
+      this.rua = json.logradouro; 
+    });
+
+
   }
 
 
